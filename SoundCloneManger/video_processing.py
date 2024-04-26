@@ -45,13 +45,11 @@ class VideoEditor:
         self.audio = audio
 
     def edit_video(self):
-
         print("Audio duration:", self.audio)
 
         # video = mp.VideoFileClip(self.video_path_without_audio).subclip(0, 60)
         video = mp.VideoFileClip(self.video_path_without_audio).subclip(0, 29)
         audio = mp.AudioFileClip(self.audio).subclip(0, 29)
-
 
         new_audio = mp.CompositeAudioClip([audio])
         # video.audio = new_audio
