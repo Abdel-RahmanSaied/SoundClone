@@ -4,6 +4,9 @@ from pedalboard import *
 from langdetect import detect
 from pydub import AudioSegment
 import math
+from moviepy.editor import VideoFileClip
+
+import moviepy.editor as mp
 
 
 
