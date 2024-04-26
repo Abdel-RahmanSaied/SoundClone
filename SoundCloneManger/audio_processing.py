@@ -7,6 +7,8 @@ from langdetect import detect
 
 from translate import Translator
 
+# from pydub
+
 
 class AudioProcessor:
     def __init__(self):
@@ -77,6 +79,9 @@ class AudioGenerator:
             voice=voice,
             model="eleven_multilingual_v2"
         )
+
+        # export the audio
+
 
         return audio
 

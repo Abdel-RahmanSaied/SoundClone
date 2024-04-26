@@ -9,7 +9,6 @@ from moviepy.editor import VideoFileClip
 import moviepy.editor as mp
 
 
-
 class VideoProcessor:
     def __init__(self, video_file_path):
         self.video_file_path = video_file_path
@@ -46,9 +45,16 @@ class VideoEditor:
         self.audio = audio
 
     def edit_video(self):
-        video = mp.VideoFileClip(self.video_path_without_audio).subclip(0, 60)
-        audio = mp.AudioFileClip(self.audio).subclip(0, 60)
+
+        print("Audio duration:", self.audio)
+
+        # video = mp.VideoFileClip(self.video_path_without_audio).subclip(0, 60)
+        video = mp.VideoFileClip(self.video_path_without_audio).subclip(0, 29)
+        audio = mp.AudioFileClip(self.audio).subclip(0, 29)
+
+
         new_audio = mp.CompositeAudioClip([audio])
+        # video.audio = new_audio
         video.audio = new_audio
         output_video = "outputVideo.mp4"
         video.write_videofile(output_video)
