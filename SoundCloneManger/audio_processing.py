@@ -13,7 +13,8 @@ from translate import Translator
 
 class AudioProcessor:
     def __init__(self):
-        self.translator = Translator(from_lang='english', to_lang='arabic')
+        # self.translator = Translator(from_lang='english', to_lang='arabic')
+        self.translator = Translator(to_lang='ar')
         self.recognizer = sr.Recognizer()
 
     def get_audio_from_video(self):
@@ -22,7 +23,9 @@ class AudioProcessor:
     def run(self, audio_file_path, src='english', dest='arabic'):
         original_text, original_lang = self.extract_text_from_audio(audio_file_path)
         input_text = original_text
-        translated_text = self.translator.translate("So you're running a little late today.")
+        print("Original text:", input_text)
+        edited_text = input_text[:500] if len(input_text) > 500 else input_text
+        translated_text = self.translator.translate(str(edited_text))
         print("Translated text:", translated_text)
         return translated_text
         # return translated_text.text
