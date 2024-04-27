@@ -40,20 +40,25 @@ class VideoProcessor:
 
 
 class VideoEditor:
-    def __init__(self, video_path_without_audio, audio):
+    def __init__(self, video_path_without_audio, audio_path):
         self.video_path_without_audio = video_path_without_audio
-        self.audio = audio
+        self.audio_path = audio_path
 
     def edit_video(self):
-        print("Audio duration:", self.audio)
+        print("%" * 50)
 
-        # video = mp.VideoFileClip(self.video_path_without_audio).subclip(0, 60)
-        video = mp.VideoFileClip(self.video_path_without_audio).subclip(0, 29)
-        audio = mp.AudioFileClip(self.audio).subclip(0, 29)
+        video_obj = mp.VideoFileClip(self.video_path_without_audio)
+        video_duration = math.ceil(video_obj.duration)
+        print("Video duration:", video_duration)
+        video = video_obj.subclip(0, int(video_duration) - 1)
 
-        new_audio = mp.CompositeAudioClip([audio])
-        # video.audio = new_audio
-        video.audio = new_audio
-        output_video = "outputVideo.mp4"
-        video.write_videofile(output_video)
+        audio_obj = mp.AudioFileClip(self.audio_path)
+        audio_duration = math.ceil(audio_obj.duration)
+        print("Audio duration:", audio_duration)
+        audio = audio_obj.subclip(0, int(audio_duration) - 1)
+
+        video.audio = mp.CompositeAudioClip([audio])
+        output_video = "outputGeneratedVideo.mp4"
+        video.write_videofile(output_video, codec='libx264', audio_codec='aac')
+
         return output_video

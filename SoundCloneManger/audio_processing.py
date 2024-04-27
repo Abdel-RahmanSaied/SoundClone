@@ -1,11 +1,12 @@
 # from googletrans import Translator
 from elevenlabs.client import ElevenLabs
-from elevenlabs import play
+from elevenlabs import play, save
 import moviepy.editor as mp
 import speech_recognition as sr
 from langdetect import detect
 
 from translate import Translator
+
 
 # from pydub
 
@@ -20,8 +21,8 @@ class AudioProcessor:
 
     def run(self, audio_file_path, src='english', dest='arabic'):
         original_text, original_lang = self.extract_text_from_audio(audio_file_path)
-        input = original_text
-        translated_text = self.translator.translate("How are you fucken boy")
+        input_text = original_text
+        translated_text = self.translator.translate("So you're running a little late today.")
         print("Translated text:", translated_text)
         return translated_text
         # return translated_text.text
@@ -47,16 +48,16 @@ class AudioProcessor:
                 print("Error occurred:", e)
                 raise e
 
-    def translate_text(self, text, source_language, target_language):
-        translator = self.translator
-
-        try:
-            translation = translator.translate(text, src=source_language, dest=target_language)
-            print("Translation: \n", translation.text)
-            return translation.text
-
-        except Exception as e:
-            raise e
+    # def translate_text(self, text, source_language="english", target_language="arabic"):
+    #     translator = self.translator
+    #
+    #     try:
+    #         translation = translator.translate(text, src=source_language, dest=target_language)
+    #         print("Translation: \n", translation.text)
+    #         return translation.text
+    #
+    #     except Exception as e:
+    #         raise e
 
 
 class AudioGenerator:
@@ -81,8 +82,8 @@ class AudioGenerator:
         )
 
         # export the audio
-
-
+        save(audio, "Generated_Audio.wav")
+        print("Audio generated")
         return audio
 
     def play_audio(self, audio):
